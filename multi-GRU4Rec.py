@@ -122,7 +122,12 @@ df = pd.read_csv('dataset/filtered_data.csv')
 basetime = datetime.datetime.strptime(df['出价时间'].min(), '%Y-%m-%d')
 # 将出价时间设置为与basetime的差
 df['出价时间'] = df['出价时间'].apply(lambda x: (datetime.datetime.strptime(x, '%Y-%m-%d') - basetime).days)
+print("row 数目：", len(df["车ID"].tolist()))
+print("车的数目：",len(set(df["车ID"].tolist())))
+print(df['出价金额'].min(), df['出价金额'].max())
+cid_df = df[df["车ID"].isin([1690])]
 df['出价金额'] = df['出价金额'].apply(lambda x: x/100000)
+
 dp = DataPre(df)
 
 from torch.utils.data import DataLoader
